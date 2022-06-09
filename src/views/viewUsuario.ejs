@@ -41,10 +41,33 @@
             </form>
         </div>
         
-        <ul>
-            <li>Nome: <%= user.nome %></li>
-            <li>Email: <%= user.email %></li>
-        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"> ID </th>
+                    <th scope="col"> NOME </th>
+                    <th scope="col"> EMAIL </th>
+                    <th scope="col"> AÇÕES </th>
+                    <th scope="col"> EXLUIR </th>
+                </tr>
+            </thead>
+            <tbody>                
+                    <tr>
+                        <th scope="row"><%= user.id_usuario %></th>
+                        <th><%= user.nome %></th>
+                        <th><%= user.email %></th>
+                        <th>
+                            <a class="btn btn-warning" href="/users/editar/<%= user.id_usuario %>">EDITAR</a>
+                        </th>
+                        <th>
+                            <form action="/users/delete/<%= user.id_usuario %>?_method=DELETE" method="post">
+                                <button class="btn btn-danger" type="submit">Excluir</button>
+                            </form>
+                        </th>
+                    </tr> 
+                
+            </tbody>
+        </table> 
 
         
 

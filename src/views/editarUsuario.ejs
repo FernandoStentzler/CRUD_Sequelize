@@ -34,52 +34,28 @@
 
     <main class="container mt-4">
         <div class="d-flex justify-content-between">
-            <h1>Lista de Usuarios</h1>
+            <h1>Cadastro Novo Usuario</h1>
             <form action="/users/search" class="d-flex justify-content-around align-items-center" method="get">
                 <input type="text" class="form-control" placeholder="Pesquise um usuário" name="key">                
                 <button type="submit" class="ml-3 btn btn-success">Buscar</button>
             </form>
         </div>
         
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col"> ID </th>
-                    <th scope="col"> NOME </th>
-                    <th scope="col"> AÇÕES </th>
-                    <th scope="col"> EXCLUIR </th>
-                </tr>
-            </thead>
-            <tbody>
-                <% users.forEach(user => { %>
-                    <tr>
-                        <th scope="row"><%= user.id_usuario %></th>
-                        <th><%= user.nome %></th>
-                        <th>
-                            <a class="btn btn-primary" href="/users/find/<%= user.id_usuario %>">Ver Dados</a>
-                            <a class="btn btn-warning" href="/users/editar/<%= user.id_usuario %>">Editar Dados</a>
-                        </th>
-                        <th>
-                            <form action="/users/delete/<%= user.id_usuario %>?_method=DELETE" method="post">
-                            <button class="btn btn-danger" type="submit">Excluir</button>
-                            </form>
-                        </th>
-                        
-                    </tr> 
-                <% }) %>
-            </tbody>
-        </table> 
-        
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <% for (let i = 1; i <= totalPagina; i++){ %>
-
-                <li class="page-item"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
-                    
-                <% } %>
-                
-            </ul>
-        </nav>
+        <form class="card p-3" action="/users/editar/<%=user.id_usuario%>/?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input class="form-control" value="<%=user.nome%>" type="text" name="nome" id="nome">
+            </div>
+            <div class="form-group">
+                <label for="nome">Email</label>
+                <input class="form-control" value="<%=user.email%>" type="email" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="nome">Senha</label>
+                <input class="form-control" value="<%=user.senha%>" type="password" name="senha" id="senha">
+            </div>
+            <button class="btn btn-success" type="submit">Salvar Alterações</button>
+        </form>
 
     </main>
     

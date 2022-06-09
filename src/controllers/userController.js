@@ -7,8 +7,8 @@ const userController = {
     home: async (req,res) => {
         let {page=1} = req.query
         let {count:total, rows:users} = await Usuario.findAndCountAll({
-            limit: 5,
-            offset: (page - 1) * 5
+            limit: 6,
+            offset: (page - 1) * 6
         })
         let totalPagina = Math.round(total/5)        
         res.render('usuarios', {users, totalPagina})
@@ -32,6 +32,46 @@ const userController = {
         return res.redirect('/users')
     },
 
+    edit: async (req,res) => {
+        const id = req.params.id;
+
+        const user = await Usuario.findByPk(id)
+
+        return res.render('editarUsuario', {user})
+    },
+
+    update: async (req,res) =>{
+        const id = req.params.id
+        const {nome , email , senha} = req.body;
+        let criptografada = bcrypt.hashSync(senha, 10)
+
+        await Usuario.update({
+            nome,
+            email,
+            senha:criptografada
+        },
+        {
+            where:{
+                id_usuario:id
+            }
+        })
+
+        
+        return res.redirect('/users')
+    },
+
+    destroy: async (req,res)=>{
+        let id = req.params.id
+
+        const resultado = await Usuario.destroy({
+            where:{
+                id_usuario:id
+            }
+        })
+
+        res.redirect('/users')
+    },
+
     findOne: async (req,res) => {
         let id = req.params.id
         let user = await Usuario.findOne({
@@ -40,7 +80,7 @@ const userController = {
             }
         })
         
-        return res.render('viewUsuario' , {user:user})
+        return res.render('viewUsuario' , {user})
 
     },
     findByPk: async (req,res) => {

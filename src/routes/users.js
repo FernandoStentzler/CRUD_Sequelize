@@ -18,5 +18,12 @@ router.get('/search', userController.search)
 router.get('/creat', userController.creat)
 router.post('/creat', userController.store)
 
+// Update
+router.get('/editar/:id', userController.edit)
+router.put('/editar/:id', userController.update)
+
+// Delete
+router.delete('/delete/:id', userController.destroy)
+
 
 module.exports = router;
