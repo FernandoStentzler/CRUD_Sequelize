@@ -11,7 +11,7 @@
 <body>
     <header class="bg-info">
         <nav class="navbar container navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="/users">Livraria BookCraft</a>
+            <a class="navbar-brand" href="/albuns">Livraria BookCraft</a>
             <button class="navbar-brand" type="button" data-toogle="collapse" data-target="#navbarNav" 
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toogle navigation">
                 <span class="navbar-toogler-icon"></span>
@@ -34,28 +34,44 @@
 
     <main class="container mt-4">
         <div class="d-flex justify-content-between">
-            <h1>Editando Usuario <%=user.nome%></h1>
+            <h1>Albuns Artistas: <%=artista.nome%></h1>
             <form action="/users/search" class="d-flex justify-content-around align-items-center" method="get">
                 <input type="text" class="form-control" placeholder="Pesquise um usuário" name="key">                
                 <button type="submit" class="ml-3 btn btn-success">Buscar</button>
             </form>
         </div>
         
-        <form class="card p-3" action="/users/editar/<%=user.id_usuario%>/?_method=PUT" method="POST">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input class="form-control" value="<%=user.nome%>" type="text" name="nome" id="nome">
-            </div>
-            <div class="form-group">
-                <label for="nome">Email</label>
-                <input class="form-control" value="<%=user.email%>" type="email" name="email" id="email">
-            </div>
-            <div class="form-group">
-                <label for="nome">Senha</label>
-                <input class="form-control" value="" type="password" name="senha" id="senha">
-            </div>
-            <button class="btn btn-success" type="submit">Salvar Alterações</button>
-        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"> ID </th>
+                    <th scope="col"> Nome Do Album </th>
+                    <th scope="col"> AÇÕES </th>
+                    <th scope="col"> EXLUIR </th>
+                </tr>
+            </thead>
+            <tbody> 
+                <% artista.albuns.forEach(album => { %>
+                <tr>
+                    <th scope="row"><%= album.id %></th>
+                    <th><%= album.titulo %></th>
+                    <th>
+                        <a class="btn btn-warning" href="/albuns/editar/">EDITAR</a>
+                                            
+                    </th>
+                    <th>
+                        <form action="/albuns/delete/?_method=DELETE" method="post">
+                            <button class="btn btn-danger" type="submit">Excluir</button>
+                        </form>
+                    </th>
+                </tr> 
+
+                <% }) %>
+
+            </tbody>
+        </table> 
+
+        
 
     </main>
     

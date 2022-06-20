@@ -34,7 +34,7 @@
 
     <main class="container mt-4">
         <div class="d-flex justify-content-between">
-            <h1>Informações do Usuario</h1>
+            <h1>Informações do Usuario <%=user.nome%></h1>
             <form action="/users/search" class="d-flex justify-content-around align-items-center" method="get">
                 <input type="text" class="form-control" placeholder="Pesquise um usuário" name="key">                
                 <button type="submit" class="ml-3 btn btn-success">Buscar</button>

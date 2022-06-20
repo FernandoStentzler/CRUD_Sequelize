@@ -7,10 +7,10 @@ const userController = {
     home: async (req,res) => {
         let {page=1} = req.query
         let {count:total, rows:users} = await Usuario.findAndCountAll({
-            limit: 6,
-            offset: (page - 1) * 6
+            limit: 5,
+            offset: (page - 1) * 5
         })
-        let totalPagina = Math.round(total/5)        
+        let totalPagina = Math.ceil(total/5)        
         res.render('usuarios', {users, totalPagina})
         
     },

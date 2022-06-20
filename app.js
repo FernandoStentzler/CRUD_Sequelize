@@ -3,13 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-
-
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var albunsRouter = require('./src/routes/albuns');
+var artistasRouter = require('./src/routes/artistas');
+var pedidosRouter = require('./src/routes/pedidos');
 
 var app = express();
 
@@ -22,12 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser());
 // override with POST having ?_method=PUT
 app.use(methodOverride('_method'))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/albuns', albunsRouter);
+app.use('/artistas', artistasRouter);
+app.use('/pedidos', pedidosRouter);
 
 
 // catch 404 and forward to error handler
